@@ -10,6 +10,9 @@
 👉 **[REGISTER ON MEXC WITH 0% FEE PROMO](https://promote.mexc.com/r/JJFZZ8QDMC)** — *Activate your zero-fee account before running the bot.*
 
 
+![MEXC Scalping Bot 2026: Automated High-Frequency Trading with 0% Fees](https://i.ibb.co/DHTHct2c/MEXC-Scalping-Bot-2026-Automated-High-Frequency-Trading-with-0-Fees.png)
+
+
 ## 📊 How the "Zero-Fee" Scalping Strategy Works
 
 The bot uses a **Spread Penetration Algorithm**. It identifies the gap between the best Buy and Sell orders and places your orders right in the middle. Because these orders go into the Order Book instead of executing instantly, MEXC treats them as **Maker Orders**, charging you **exactly $0 in fees**.
