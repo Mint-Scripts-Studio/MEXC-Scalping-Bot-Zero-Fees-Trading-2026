@@ -3,7 +3,7 @@
 ![MEXC](https://img.shields.io/badge/Exchange-MEXC-blue?style=for-the-badge)
 ![Scalping](https://img.shields.io/badge/Strategy-Scalping-green?style=for-the-badge)
 ![Zero Fees](https://img.shields.io/badge/Fees-Zero_Maker-red?style=for-the-badge)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge) 
 
 **Stop burning your profit on commissions!** This 2026 Edition **MEXC Zero-Fee Scalper** is a professional-grade Python tool designed to exploit the spread on the MEXC exchange. By leveraging **0% Maker Fees**, this bot allows you to scalp micro-movements that would be unprofitable on any other platform.
 
