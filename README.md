@@ -1,4 +1,4 @@
-# 🚀 MEXC Scalping Bot 2026: Automated High-Frequency Trading with 0% Fees
+# 🚀 MEXC Scalping Bot 2026: Automated High-Frequency Trading with 0% Fees 
 
 ![MEXC](https://img.shields.io/badge/Exchange-MEXC-blue?style=for-the-badge)
 ![Scalping](https://img.shields.io/badge/Strategy-Scalping-green?style=for-the-badge)
