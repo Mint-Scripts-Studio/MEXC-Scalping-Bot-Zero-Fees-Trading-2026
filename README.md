@@ -14,7 +14,7 @@
 
 
 ## 📊 How the "Zero-Fee" Scalping Strategy Works
-
+ 
 The bot uses a **Spread Penetration Algorithm**. It identifies the gap between the best Buy and Sell orders and places your orders right in the middle. Because these orders go into the Order Book instead of executing instantly, MEXC treats them as **Maker Orders**, charging you **exactly $0 in fees**.
 
 ### Logic Visualization:
