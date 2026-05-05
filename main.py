@@ -1,47 +1,51 @@
 import time
-from config import API_KEY, API_SECRET, SYMBOL, ORDER_AMOUNT, OFFSET_PCT, ORDER_REFRESH_SEC, CANCEL_OLD_ORDERS
+from config import API_KEY, API_SECRET, SYMBOL, ORDER_AMOUNT, OFFSET_PCT, ORDER_REFRESH_SEC, CANCEL_OLD_ORDERS, LEVERAGE
 from orderbook import OrderBookFetcher
 from trader import ZeroFeeTrader
 
 def main():
-    print("🚀 MEXC Zero-Fee Scalper Started")
-    print(f"Pair: {SYMBOL}, Volume: {ORDER_AMOUNT}, Refresh: {ORDER_REFRESH_SEC}s")
-    print(f"Using zero maker fee strategy - placing orders INSIDE spread")
+    print("🚀 MEXC FUTURES Scalper (Zero Fee - Maker)")
+    print(f"Pair: {SYMBOL}, Contracts: {ORDER_AMOUNT}, Refresh: {ORDER_REFRESH_SEC}s")
     
-    # Initialize components
     fetcher = OrderBookFetcher(SYMBOL)
     trader = ZeroFeeTrader(API_KEY, API_SECRET, SYMBOL)
+    
+    # Устанавливаем плечо
+    try:
+        trader.exchange.set_leverage(LEVERAGE, SYMBOL)
+        print(f"✅ Leverage set to {LEVERAGE}x")
+    except:
+        print("⚠️ Could not set leverage (may already be set)")
 
-    # Main trading loop
     while True:
-        # Get current market prices
         best_bid, best_ask = fetcher.get_best_bid_ask()
-
-        # Skip if we couldn't get order book data
+        
         if best_bid is None or best_ask is None:
-            print("Waiting for order book data...")
+            print("Waiting for order book...")
             time.sleep(ORDER_REFRESH_SEC)
             continue
-
-        # Cancel old orders if enabled
+        
         if CANCEL_OLD_ORDERS:
             trader.cancel_all_orders()
-
-        # Calculate maker order prices (inside the spread)
-        # Buy price = bid + offset (higher than current best bid)
-        buy_price = round(best_bid * (1 + OFFSET_PCT), 2)
-        # Sell price = ask - offset (lower than current best ask)
-        sell_price = round(best_ask * (1 - OFFSET_PCT), 2)
-
+        
+        # Получаем текущую позицию
+        side, size = trader.get_position()
+        
         print(f"\n📊 Best Bid: {best_bid} | Best Ask: {best_ask}")
-        print(f"📈 Placing BUY limit @ {buy_price} (maker - zero fee)")
-        print(f"📉 Placing SELL limit @ {sell_price} (maker - zero fee)")
-
-        # Place both limit orders
-        trader.place_limit_order('buy', buy_price, ORDER_AMOUNT)
-        trader.place_limit_order('sell', sell_price, ORDER_AMOUNT)
-
-        # Wait before next cycle
+        print(f"📌 Current position: {side if side else 'none'} ({size} contracts)")
+        
+        # Рассчитываем цены
+        buy_price = round(best_bid * (1 + OFFSET_PCT), 2)
+        sell_price = round(best_ask * (1 - OFFSET_PCT), 2)
+        
+        # Стратегия: открываем позицию, если её нет
+        if side is None:
+            print(f"📈 Opening LONG with BUY limit @ {buy_price}")
+            trader.place_limit_order('buy', buy_price, ORDER_AMOUNT)
+        else:
+            print(f"Position exists, waiting to close via opposite order...")
+            # Бот не будет открывать вторую позицию
+        
         time.sleep(ORDER_REFRESH_SEC)
 
 if __name__ == "__main__":
