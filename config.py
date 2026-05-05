@@ -3,13 +3,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# API keys (get from .env file)
 API_KEY = os.getenv('MEXC_API_KEY')
 API_SECRET = os.getenv('MEXC_API_SECRET')
 
-# Bot settings
-SYMBOL = 'BTC/USTS'          # Trading pair (BTC/USDT, ETH/USDT, etc.)
-ORDER_AMOUNT = 0.001         # Order volume in base currency (min ~0.001 BTC)
-OFFSET_PCT = 0.0005          # 0.05% offset from best bid/ask
-ORDER_REFRESH_SEC = 2        # How often to refresh orders (seconds)
-CANCEL_OLD_ORDERS = True     # Cancel old limit orders before placing new ones
+# Фьючерсные настройки
+SYMBOL = 'SOL/USDT:USDT'      # Формат фьючерсов MEXC
+ORDER_AMOUNT = 1              # 1 КОНТРАКТ = 1 SOL (не 0.2!)
+OFFSET_PCT = 0.0005           # 0.05% смещение
+ORDER_REFRESH_SEC = 2
+CANCEL_OLD_ORDERS = True
+
+# Для фьючерсов: маржа (примерно 5-10 USDT на 1 контракт SOL)
+# При цене SOL 85 USDT и плече 10x на 1 контракт нужно ~8.5 USDT маржи
+LEVERAGE = 10                 # Плечо
